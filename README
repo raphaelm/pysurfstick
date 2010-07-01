@@ -14,7 +14,9 @@ DONE:
 - PIN authentication
 
 TODO:
-- calling
+- calling (if possible)
+- recharge credit (prepaid tarifes)
+- buying and activating prepaid tarifes
 - send SMS
 - read SMS
 - get some meta information
