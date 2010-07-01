@@ -1,0 +1,140 @@
+Befehle, die mit dem Huawei 1550 erfolgreich getestet wurden
+
+Generell
+========
+AT					Test
+AT+CPIN="****"		PIN-Eingabe
+AT+CGMI				Herstellerinfo
+AT+CGMM				Modellinfo
+AT+CGMR				"Änderungsinfo"
+AT+CGSN				Seriennummer
+AT+CCLK?			Uhrzeit abfragen (+CCLK: 1980/01/06,00:00:58)
+AT+CCLK=time		Uhrzeit setzen (time: "YYYY/MM/DD,hh:mm:ss±tz")	(laut Doku 
+					nur zweistellige Jahreszahl, der Huawei 1550 braucht sie aber 
+					vierstellig!)
+AT+CIMI				Abfragen der IMSI der SIM
+ATD********;		Anrufen
+AT+CHUP				Alles auflegen
+
+Nachrichten
+===========
+
+AT+CPMS=?			Liste der unterstützen Nachrichtenspeicher
+					ME = Endgerät
+					SM = SIM-Karte
+					MT = ME + SM
+					TA = Terminal
+					SR = Speicher für Statusreports
+					BM = Speicher für CB-Nachrichten
+AT+CPMS=m1,m2,m3	Setzt den bevorzugten Speicher
+					m1 = lesen und löschen
+					m2 = schreiben und senden
+					m3 = ankommende Nachrichten
+AT+CPMS?			Anzeige des eingestellten Nachrichtenspeichers
+
+PDU
+---
+AT+CMGD=a,b			Nachricht a mit Modus b (default: 0) löschen
+					0	nur diese Nachricht löschen
+					1	alle bereits gelesenen Nachrichten löschen
+					2	alle bereits gelesenen und alle abgehenden, bereits 
+						versendeten Nachrichten löschen
+					3	alle bereits gelesenen und alle abgehenden Nachrichten löschen
+					4	alle Nachrichten löschen
+AT+CGML=?			Abfrage der verfügbaren Lesemodi
+					0	REC UNREAD	empfangen und ungelesen
+					1	REC READ	empfangen und bereits gelesen
+					2	STO UNSENT	gespeichert und noch nicht versandt
+					3	STO SENT	gespeichert und bereits versendet
+					4	ALL			alle Nachrichten
+AT+CGML=x			Auslesen der mit x angegebenen Teilmenge von Kurznachrichten 
+					aus dem mit +CPMS eingestellten Speicherbereich "nach Status"
+					
+SMS funktionierend
+------------------
+AT+CSCA?			SMS-Service-Center-Adresse
+AT+CMGF=1			Text-Modus (vor SMS setzen!)
+AT+CMGS="*****"		SMS-Beginn an ***** - ende durch 1A(hex) ("")
+
+Telefonbuch
+===========
+AT+CPBS=?			Verfügbare Telefonbuchspeicher
+					ME = Endgerät
+					SM = SIM-Karte
+					MT = ME + SM
+					FD = Feste Rufnummern
+					LD = Wahlwiederholung
+					TA = Liste im TA
+					OW = Eigene Nummern
+AT+CPBS?			Aktueller Telefonspeicher (+CPBS: a,b,c) a=Speicher, b=benutzte Einträge
+					c = max. Einträge
+AT+CPBR=?			Verfügbare Nummern
+AT+CPBR=x			Telefonbucheintrag x abfragen
+					Antwort: +CPBR: 1,"+4911833",145,"Auskunft"
+AT+CPBW=?			Infos über das Telefonbuch
+					+CPBW: (1-100),24,(128-255),16
+					bedeutet: 100 mögliche Einträge, die Nummer darf 24 Zeichen 
+					lang sein, als 'type of address' wird ein Wert von 128-255 
+					akzeptiert, der Name darf 16 Zeichen lang sein. Mögliche, 
+					sinnvolle Werte für den 'type of address' sind:
+					145	'international number', also alles, was mit '+...' beginnt
+					129	'unknown number format', also alles, was nicht mit '+...' beginnt
+AT+CPBW=x			Schreibt einen Telefonbucheintrag (Syntax siehe AT+CPBR=x)
+AT+CPBF="x"			Suchen nach X (gibt Ergebnisse wie CPBS? zurück)
+
+Netzstatus
+==========
+AT+CREG?			Verbindungsstatus. Möglichkeiten (zweiter Wert):
+					0	nicht eingebucht, keine Netzsuche
+					1	eingebucht, Heimatnetz
+					2	nicht eingebucht, Netzsuche
+					3	nicht eingebucht, Einbuchung abgelehnt
+					4	Status unbekannt
+					5	eingebucht, Fremdnetz
+AT+CSQ				Signalstärke "a,b"
+					a:
+						0		-113dBm oder schlechter
+						1		-111dBm
+						2...30	-109dBm bis -53dBm
+						31		-51dBm oder besser
+						99		nicht lesbar / unbekannt
+					b: RXQUAL, im idle 99 und für uns uninteressant
+					
+Antworten
+=========
+Achtung, Antworten sind nicht einheitlich. Beispiel:
+	( < = Output // > == Input )
+	>AT+CCLK?
+	<+CCLK: 1999/09/09,11:21:12
+	<
+	<OK
+	>AT+CGSN
+	<01189998819991897253
+	<
+	<OK
+
+Fehlercodes
+===========
+
+0-127 	GSM 04.11 Annex E-2 values 
+128-255 GSM 03.40 section 9.2.3.22 values 
+300		Phone failure 
+301		SMS service of phone reserved 
+302		Operation not allowed 
+303		Operation not supported 
+304 	Invalid PDU mode parameter 
+305 	Invalid text mode parameter 
+310 	SIM not inserted 
+311 	SIM PIN necessary 
+312 	PH-SIM PIN necessary 
+313 	SIM failure 
+314 	SIM busy 
+315 	SIM wrong 
+320 	Memory failure 
+321 	Invalid memory index 
+322 	Memory full 
+330 	SMSC (message service center) address unknown 
+331 	No network service 
+332 	Network timeout 
+500 	Unknown error 
+512 	Manufacturer specific
