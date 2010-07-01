@@ -1,0 +1,4 @@
+*.pyc
+.PIN
+miniterm.py
+

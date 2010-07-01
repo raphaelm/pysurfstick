@@ -1,0 +1,20 @@
+TASK:
+- building a python module for talking with UMTS sticks
+
+REQUIRED:
+- python module serial
+	- debian package python-serial
+	- http://pyserial.sourceforge.net/
+
+TESTED WITH:
+- "o2 prepaid surfstick" == Huawei 1550 UMTS
+
+DONE:
+- sending raw commands
+- PIN authentication
+
+TODO:
+- calling
+- send SMS
+- read SMS
+- get some meta information
