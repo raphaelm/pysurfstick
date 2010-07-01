@@ -1,3 +1,8 @@
+##########################################
+# Core documentation & module in English #
+# GUI and more docs in German!           #
+##########################################
+
 TASK:
 - building a python module for talking with UMTS sticks
 
@@ -20,3 +25,4 @@ TODO:
 - send SMS
 - read SMS
 - get some meta information
+- GUI
