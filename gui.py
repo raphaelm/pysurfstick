@@ -139,11 +139,15 @@ class MainWindow(gtk.Window):
 		# Main Window
 		self.set_geometry_hints(self, 650, 400, 1024, 600, 650, 400, 1, 1)
 		
+		# Information tab
+		self.info_vbox = gtk.VBox()
+		self.info_vbox.show()
+		
 		# Big tab environment area as main element
 		self.main_notebook = gtk.Notebook()
 		self.main_notebook.show()
 		
-		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("Informationen"))
+		self.main_notebook.append_page(self.info_vbox, gtk.Label("Informationen"))
 		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("SMS"))
 		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("Prepaid-Tarife"))
 		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("SIM-Telefonbuch"))
@@ -253,6 +257,20 @@ class SurfstickGUI:
 	def ev_leave(self, this):
 		gtk.main_quit()
 		
+	def load_info(self):
+		hbox = {}
+		left = {}
+		right = {}
+		
+		hbox[0] = gtk.HBox()
+		left[0] = gtk.Label("Hersteller:")
+		right[0] = gtk.Label(self.s.get_manufacturer()[1])
+		hbox[0].pack_end(right[0])
+		hbox[0].pack_end(left[0])
+		
+		for i in hbox:
+			self.main_win.info_vbox.pack_end(hbox[i], False, False)
+		
 	def __init__(self, port = '/dev/ttyUSB0'):
 		# Class variables
 		self.port = port
@@ -264,7 +282,7 @@ Ein anderer Port kann über den Kommandozeilenparameter -p spezifiert werden."""
 			sys.exit(0)
 		
 		self.pinauth()
-			
+		self.load_info()
 		
 		# main window
 		self.main_win = MainWindow()

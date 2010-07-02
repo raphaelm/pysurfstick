@@ -55,4 +55,6 @@ class SurfstickUser(interface.SurfstickInterface):
 			return (False, "puk")
 		else:
 			return (False, "unknown")
-		
+	
+	def get_manufacturer(self):
+		com = self.command_morelineanswer('AT+CGMI')
