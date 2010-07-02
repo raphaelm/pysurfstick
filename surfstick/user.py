@@ -46,7 +46,7 @@ class SurfstickUser(interface.SurfstickInterface):
 		elif com1.upper().endswith("SIM PUK"):
 			return (False, "puk")
 		else:
-			print com, com1
+			print com1
 			return (False, "unknown")
 	
 	def pin_needed(self):
