@@ -282,7 +282,6 @@ Ein anderer Port kann über den Kommandozeilenparameter -p spezifiert werden."""
 			sys.exit(0)
 		
 		self.pinauth()
-		self.load_info()
 		
 		# main window
 		self.main_win = MainWindow()
@@ -290,6 +289,10 @@ Ein anderer Port kann über den Kommandozeilenparameter -p spezifiert werden."""
 		#self.main_win.set_icon_from_file("img/logo.png")
 		self.main_win.set_title("Surfstick GUI")
 		self.main_win.connect('destroy', self.ev_leave)
+		
+		statusbar = self.main_win.statusbar_push("Lade Informationen…")
+		self.load_info()
+		self.main_win.statusbar.remove_message(statusbar)
 	
 	def __del__(self):
 		try:
