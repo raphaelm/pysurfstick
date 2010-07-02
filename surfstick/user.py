@@ -86,7 +86,7 @@ class SurfstickUser(interface.SurfstickInterface):
 
 	def get_state(self):
 		com = self.command_morelineanswer('AT+CREG?')
-		search = re.search("+CREG: [0-9]+,([0-9]+)$", com)
+		search = re.search("\+CREG: [0-9]+,([0-9]+)[^0-9]*", com)
 		if search:
 			return search.group(1)
 		else:
@@ -95,7 +95,7 @@ class SurfstickUser(interface.SurfstickInterface):
 
 	def get_signal(self):
 		com = self.command_morelineanswer('AT+CSQ')
-		search = re.search("+CSQ: ([0-9]+),", com)
+		search = re.search("\+CSQ: ([0-9]+),", com)
 		if search:
 			return search.group(1)
 		else:
