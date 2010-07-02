@@ -263,7 +263,7 @@ class SurfstickGUI:
 		elif signal == 1:
 			return "-111 dBm"
 		elif 2 <= signal <= 30:
-			return "-109dBm bis -53dBm (%d)" % ((signal-2)/30*100)
+			return "-109dBm bis -53dBm"
 		elif signal == 31:
 			return "-51dBm oder besser"
 		else:

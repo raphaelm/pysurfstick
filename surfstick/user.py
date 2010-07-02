@@ -88,6 +88,7 @@ class SurfstickUser(interface.SurfstickInterface):
 		com = self.command_morelineanswer('AT+CREG')
 		com = self.command_morelineanswer('AT+CREG?')
 		search = re.search("\\+CREG: [0-9]+,([0-9]+)[^0-9]*", com[1])
+		print com, search.group(1)
 		if search:
 			return int(search.group(1))
 		else:
