@@ -339,7 +339,7 @@ Nach anstecken des Gerätes kann es unter Umständen bis zu zwei Minuten dauern,
 		# main window
 		self.main_win = MainWindow()
 		self.main_win.show_all()
-		#self.main_win.set_icon_from_file("img/logo.png")
+		self.main_win.set_icon_from_file("logo_klein.png")
 		self.main_win.set_title("Surfstick GUI")
 		self.main_win.connect('destroy', self.ev_leave)
 		
