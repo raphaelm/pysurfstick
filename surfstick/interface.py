@@ -80,7 +80,7 @@ class SurfstickInterface:
 			elif incoming[-2:len(incoming)] == list(self.crlf):
 				result = "".join(incoming).strip()
 				if result.endswith("OK"):
-					return (True, result[0:len(result)-2].strip())
+					return (True, result[0:len(result)-2].strip(), result)
 					break
 				else:
 					if result.endswith("ERROR") or result.strip().startswith("+CME ERROR"):
