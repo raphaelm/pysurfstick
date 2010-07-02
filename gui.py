@@ -267,6 +267,7 @@ class SurfstickGUI:
 		right[0] = gtk.Label(self.s.get_manufacturer()[1])
 		hbox[0].pack_end(right[0])
 		hbox[0].pack_end(left[0])
+		hbox[0].show_all()
 		
 		for i in hbox:
 			self.main_win.info_vbox.pack_end(hbox[i], False, False)
