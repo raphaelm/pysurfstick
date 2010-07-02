@@ -221,8 +221,7 @@ class SurfstickGUI:
 			else:
 				if len(pin) == 4:
 					auth = self.s.pin_auth(pin)
-					print auth
-					return True
+					print auth[0]
 					if auth[0]:
 						dlg.destroy()
 						return True
