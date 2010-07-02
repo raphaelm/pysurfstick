@@ -241,7 +241,6 @@ class SurfstickGUI:
 							elif auth[1] == "puk":
 								self.pukauth()
 							else:
-								print auth
 								err("Die PIN wurde von der Karte nicht akzeptiert", "Wir konnten leider nicht ermitteln, warum.")
 							self.pinauth()
 					else:
