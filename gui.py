@@ -289,20 +289,16 @@ class SurfstickGUI:
 		left[4] = gtk.Label("IMSI:")
 		right[4] = gtk.Label(self.s.get_imsi()[1])
 		
-		time.sleep(5)
-		
 		left[5] = gtk.Label("Verbindungsstatus:")
 		state = {0:'nicht eingebucht, keine Netzsuche',1:'eingebucht, Heimnetz',
 				2:'Netzsuche',3:'Einbuchung abgelehnt',4:'unbekannt',
 				5:'eingebucht, Fremdnetz'}
 		right[5] = gtk.Label(state[self.s.get_state()])
 		
-		time.sleep(5)
+		time.sleep(1)
 		
 		left[6] = gtk.Label("Signalstärke:")
 		right[6] = gtk.Label(self.signaloutput(self.s.get_signal()))
-		
-		time.sleep(5)
 		
 		left[7] = gtk.Label("Port:")
 		right[7] = gtk.Label(self.port)
