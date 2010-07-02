@@ -27,13 +27,32 @@ class SurfstickUser(interface.SurfstickInterface):
 	def __init__(self, port = '/dev/ttyUSB0', waitforechoing = True):
 		interface.SurfstickInterface.__init__(self, port, waitforechoing)
 	
-	def pin_auth(self, pin):
-		com = self.command_onelineanswer('AT+CPIN="%s";' % str(pin))
-		if com.upper() == 'OK':
-			return (True,)
-		else:
-			if com.lower() == '+cme error: incorrect password':
-				return (False,"incorrect")
+	def pin_auth(self, pin = False):
+		com1 = self.command_onelineanswer('AT+CPIN?')
+		if com1.upper().endswith("READY"):
+			return (True, "nothing to do")
+		elif com1.upper().endswith("SIM PIN") and pin != False:
+			com = self.command_onelineanswer('AT+CPIN="%s";' % str(pin))
+			if com.upper() == 'OK':
+				return (True,)
 			else:
-				return (False,com)
+				if com.lower() == '+cme error: incorrect password':
+					return (False,"incorrect")
+				else:
+					return (False,com)
+		elif com1.upper().endswith("SIM PUK"):
+			return (False, "puk")
+		else:
+			return (False, "unknown")
+	
+	def pin_needed(self):
+		com1 = self.command_onelineanswer('AT+CPIN?')
+		if com1.upper().endswith("READY"):
+			return (False, "nothing to do")
+		elif com1.upper().endswith("SIM PIN"):
+			return (True,)
+		elif com1.upper().endswith("SIM PUK"):
+			return (False, "puk")
+		else:
+			return (False, "unknown")
 		

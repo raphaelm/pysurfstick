@@ -194,47 +194,61 @@ class SurfstickGUI:
 		except surfstick.interface.SurfstickInterfaceError:
 			return False
 			
-	def pinauth(self):
-		dlg = gtk.Dialog("PIN-Eingabe", None,
-					gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-					(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-					gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
-		entry = gtk.Entry()
-		entry.set_visibility(False)
-		hbox = gtk.HBox()
-		hbox.pack_start(gtk.Label("PIN-Code:"), False, 5, 5)
-		hbox.pack_end(entry)
-		dlg.vbox.pack_end(hbox, True, True, 0)
-		dlg.show_all()
+	def pukauth(self):
+		err("Die PIN wurde von der Karte nicht akzeptiert", "Die SIM-Karte ist gesperrt, und die PUK wird erwartet. Dies ist in dieser Software leider noch nicht implementiert. Bitte baue die Karte in ein Handy ein oder nutze eine andere Software.")
 		
-		ret = dlg.run()
-		if ret == -2 or ret == -4:
-			sys.exit(0)
-		elif ret == -3:
-			try:
-				pin = entry.get_text().strip()[0:4]
-				test = int(pin)
-			except:
-				dlg.destroy()
-				err("Es wird ein vierstelliger Zahlencode erwartet!")
-				self.pinauth()
-			else:
-				if len(pin) == 4:
-					auth = self.s.pin_auth(pin)
-					if auth[0]:
-						dlg.destroy()
-						return True
-					else:
-						dlg.destroy()
-						if auth[1] == "incorrect":
-							err("Die PIN wurde von der Karte nicht akzeptiert", "Die PIN war falsch. Probiere es erneut.")
-						else:
-							err("Die PIN wurde von der Karte nicht akzeptiert", "Entweder war die PIN falsch oder die Karte ist gesperrt. In letzterem Fall kann dir diese Software leider nicht weiterhelfen. Du musst dann die SIM-Karte beispielsweise in ein Handy einlegen und deine PUK eingeben.\nManchmal musst du auch nur ein bisschen warten.")
-						self.pinauth()
-				else:
+	def pinauth(self):
+		needed = self.s.pin_needed()
+		if needed[0]:
+			dlg = gtk.Dialog("PIN-Eingabe", None,
+						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+						(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+						gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+			entry = gtk.Entry()
+			entry.set_visibility(False)
+			hbox = gtk.HBox()
+			hbox.pack_start(gtk.Label("PIN-Code:"), False, 5, 5)
+			hbox.pack_end(entry)
+			dlg.vbox.pack_end(hbox, True, True, 0)
+			dlg.show_all()
+			
+			ret = dlg.run()
+			if ret == -2 or ret == -4:
+				sys.exit(0)
+			elif ret == -3:
+				try:
+					pin = entry.get_text().strip()[0:4]
+					test = int(pin)
+				except:
 					dlg.destroy()
 					err("Es wird ein vierstelliger Zahlencode erwartet!")
 					self.pinauth()
+				else:
+					if len(pin) == 4:
+						auth = self.s.pin_auth(pin)
+						if auth[0]:
+							dlg.destroy()
+							return True
+						else:
+							dlg.destroy()
+							if auth[1] == "incorrect":
+								err("Die PIN wurde von der Karte nicht akzeptiert", "Die PIN war falsch. Probiere es erneut.")
+							elif auth[1] == "puk":
+								self.pukauth()
+							else:
+								err("Die PIN wurde von der Karte nicht akzeptiert", "Wir konnten leider nicht ermitteln, warum.")
+							self.pinauth()
+					else:
+						dlg.destroy()
+						err("Es wird ein vierstelliger Zahlencode erwartet!")
+						self.pinauth()
+		elif needed[1] == "puk":
+			return self.pukauth()
+		elif needed[1] != "nothing to do":
+			err("Fehler", "Beim Ermitteln des Status, ob eine PIN erforderlich ist, ist ein unbekannter Fehler aufgetreten.")
+			return False
+		else:
+			return True
 	
 	def ev_leave(self, this):
 		gtk.main_quit()
