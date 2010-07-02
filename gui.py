@@ -273,6 +273,9 @@ class SurfstickGUI:
 		left[3] = gtk.Label("Seriennummer:")
 		right[3] = gtk.Label(self.s.get_serial()[1])
 		
+		left[4] = gtk.Label("IMSI:")
+		right[4] = gtk.Label(self.s.get_imsi()[1])
+		
 		self.main_win.info_tbl.attach(left[0],  0, 1, 0, 1)
 		self.main_win.info_tbl.attach(right[0], 1, 2, 0, 1)
 		self.main_win.info_tbl.attach(left[1],  0, 1, 1, 2)
@@ -281,6 +284,8 @@ class SurfstickGUI:
 		self.main_win.info_tbl.attach(right[2], 1, 2, 2, 3)
 		self.main_win.info_tbl.attach(left[3],  0, 1, 3, 4)
 		self.main_win.info_tbl.attach(right[3], 1, 2, 3, 4)
+		self.main_win.info_tbl.attach(left[4],  0, 1, 4, 5)
+		self.main_win.info_tbl.attach(right[4], 1, 2, 4, 5)
 		self.main_win.info_tbl.show_all()
 		
 	def __init__(self, port = '/dev/ttyUSB0'):

@@ -76,3 +76,8 @@ class SurfstickUser(interface.SurfstickInterface):
 		com = self.command_morelineanswer('AT+CGSN?')
 		return com
 
+	def get_imsi(self):
+		com = self.command_morelineanswer('AT+CIMI') # undocumented, wrong and dirty. but needed.
+		com = self.command_morelineanswer('AT+CIMI?')
+		return com
+
