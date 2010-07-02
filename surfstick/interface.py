@@ -61,3 +61,28 @@ class SurfstickInterface:
 				result = "".join(incoming).strip()
 				return result
 				break
+	
+	def command_morelineanswer(self, cmd):
+		if not self.connected:
+			raise SurfstickInterfaceError("Not connected")
+			return False
+		cmd = cmd.strip()
+		self.serial.write(cmd+self.crlf)
+		
+		incoming = []
+		echoed = False
+		while True:
+			new = self.serial.read(1)
+			incoming.append(new)
+			if incoming[-2:len(incoming)] == list(self.crlf) and self.waitforechoing and not echoed:
+				incoming = []
+				echoed = True
+			else:
+				result = "".join(incoming).strip()
+				if result.endswith("OK"):
+					return (True, result[0:len(result)-2].strip())
+					break
+				else:
+					if result.endswith("ERROR") or result.strip().startswith("+CME ERROR"):
+						return (False, result)
+						break
