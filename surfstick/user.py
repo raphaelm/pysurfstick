@@ -59,4 +59,6 @@ class SurfstickUser(interface.SurfstickInterface):
 	def get_manufacturer(self):
 		com = self.command_morelineanswer('AT+CGMI')
 		print com
+		com = self.command_morelineanswer('AT+CGMI?')
+		print com
 		return com

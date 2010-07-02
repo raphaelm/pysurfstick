@@ -270,7 +270,7 @@ class SurfstickGUI:
 		hbox[0].show_all()
 		
 		for i in hbox:
-			self.main_win.info_vbox.pack_end(hbox[i], False, False)
+			self.main_win.info_vbox.pack_start(hbox[i], False, False)
 		
 	def __init__(self, port = '/dev/ttyUSB0'):
 		# Class variables
