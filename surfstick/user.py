@@ -79,6 +79,11 @@ class SurfstickUser(interface.SurfstickInterface):
 		com = self.command_morelineanswer('AT+CGSN?')
 		return com
 
+	def get_imsi(self):
+		com = self.command_morelineanswer('AT+CIMI') # undocumented, wrong and dirty. but needed.
+		com = self.command_morelineanswer('AT+CIMI?')
+		return com
+
 	def get_state(self):
 		com = self.command_morelineanswer('AT+CREG?')
 		search = re.search("+CREG: [0-9]+,([0-9]+)[^0-9]*", com)
