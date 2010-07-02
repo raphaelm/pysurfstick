@@ -5,6 +5,7 @@
 
 TASK:
 - building a python module for talking with UMTS sticks
+- building a PyGTK GUI for using the sticks
 
 REQUIRED:
 - python module serial
@@ -26,3 +27,7 @@ TODO:
 - read SMS
 - get some meta information
 - GUI
+
+IMPORTANT!
+THIS SOFTWARE IS AUTHORIZED NEITHER BY o2 ("Telefonica") NOR BY Huawei.
+USE IT AT YOUR OWN RISK!

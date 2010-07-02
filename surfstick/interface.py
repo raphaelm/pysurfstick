@@ -42,7 +42,7 @@ class SurfstickInterface:
 			return False
 		self.serial.close()
 	
-	def command(self, cmd):
+	def command_onelineanswer(self, cmd):
 		if not self.connected:
 			raise SurfstickInterfaceError("Not connected")
 			return False

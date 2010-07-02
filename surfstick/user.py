@@ -28,7 +28,7 @@ class SurfstickUser(interface.SurfstickInterface):
 		interface.SurfstickInterface.__init__(self, port, waitforechoing)
 	
 	def pin_auth(self, pin):
-		com = self.command('AT+CPIN="%s";' % str(pin))
+		com = self.command_onelineanswer('AT+CPIN="%s";' % str(pin))
 		if com.upper() == 'OK':
 			return True
 		else:
