@@ -35,5 +35,5 @@ class SurfstickUser(interface.SurfstickInterface):
 			if com.lower() == '+cme error: incorrect password':
 				return (False,"incorrect")
 			else:
-				return (False,"other")
+				return (False,com)
 		
