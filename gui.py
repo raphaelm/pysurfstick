@@ -292,7 +292,7 @@ Ein anderer Port kann über den Kommandozeilenparameter -p spezifiert werden."""
 		
 		statusbar = self.main_win.statusbar.push(0, "Lade Informationen…")
 		self.load_info()
-		self.main_win.statusbar.remove_message(statusbar)
+		self.main_win.statusbar.remove_message(0, statusbar)
 	
 	def __del__(self):
 		try:
