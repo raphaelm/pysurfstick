@@ -312,6 +312,10 @@ class SurfstickGUI:
 		self.main_win.info_tbl.attach(right[4], 1, 2, 4, 5)
 		self.main_win.info_tbl.attach(left[5],  0, 1, 5, 6)
 		self.main_win.info_tbl.attach(right[5], 1, 2, 5, 6)
+		self.main_win.info_tbl.attach(left[6],  0, 1, 6, 7)
+		self.main_win.info_tbl.attach(right[6], 1, 2, 6, 7)
+		self.main_win.info_tbl.attach(left[7],  0, 1, 7, 8)
+		self.main_win.info_tbl.attach(right[7], 1, 2, 7, 8)
 		self.main_win.info_tbl.show_all()
 		
 	def __init__(self, port = '/dev/ttyUSB0'):
