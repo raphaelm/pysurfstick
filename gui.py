@@ -140,14 +140,14 @@ class MainWindow(gtk.Window):
 		self.set_geometry_hints(self, 650, 400, 1024, 600, 650, 400, 1, 1)
 		
 		# Information tab
-		self.info_vbox = gtk.VBox()
-		self.info_vbox.show()
+		self.info_tbl = gtk.Table()
+		self.info_tbl.show()
 		
 		# Big tab environment area as main element
 		self.main_notebook = gtk.Notebook()
 		self.main_notebook.show()
 		
-		self.main_notebook.append_page(self.info_vbox, gtk.Label("Informationen"))
+		self.main_notebook.append_page(self.info_tbl, gtk.Label("Informationen"))
 		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("SMS"))
 		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("Prepaid-Tarife"))
 		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("SIM-Telefonbuch"))
@@ -258,40 +258,29 @@ class SurfstickGUI:
 		gtk.main_quit()
 		
 	def load_info(self):
-		hbox = {}
 		left = {}
 		right = {}
 		
-		hbox[0] = gtk.HBox()
 		left[0] = gtk.Label("Hersteller:")
 		right[0] = gtk.Label(self.s.get_manufacturer()[1])
-		hbox[0].pack_end(right[0])
-		hbox[0].pack_end(left[0])
-		hbox[0].show_all()
 		
-		hbox[1] = gtk.HBox()
 		left[1] = gtk.Label("Modell:")
 		right[1] = gtk.Label(self.s.get_model()[1])
-		hbox[1].pack_end(right[1])
-		hbox[1].pack_end(left[1])
-		hbox[1].show_all()
 		
-		hbox[2] = gtk.HBox()
 		left[2] = gtk.Label("Änderungsnummer:")
 		right[2] = gtk.Label(self.s.get_revision()[1])
-		hbox[2].pack_end(right[2])
-		hbox[2].pack_end(left[2])
-		hbox[2].show_all()
 		
-		hbox[3] = gtk.HBox()
 		left[3] = gtk.Label("Seriennummer:")
 		right[3] = gtk.Label(self.s.get_serial()[1])
-		hbox[3].pack_end(right[3])
-		hbox[3].pack_end(left[3])
-		hbox[3].show_all()
 		
-		for i in hbox:
-			self.main_win.info_vbox.pack_start(hbox[i], False, False)
+		self.main_win.info_tbl.attach(left[0],  0, 1, 0, 1)
+		self.main_win.info_tbl.attach(right[0], 1, 2, 0, 1)
+		self.main_win.info_tbl.attach(left[1],  0, 1, 1, 2)
+		self.main_win.info_tbl.attach(right[1], 1, 2, 1, 2)
+		self.main_win.info_tbl.attach(left[2],  0, 1, 2, 3)
+		self.main_win.info_tbl.attach(right[2], 1, 2, 2, 3)
+		self.main_win.info_tbl.attach(left[3],  0, 1, 3, 4)
+		self.main_win.info_tbl.attach(right[3], 1, 2, 4, 4)
 		
 	def __init__(self, port = '/dev/ttyUSB0'):
 		# Class variables
