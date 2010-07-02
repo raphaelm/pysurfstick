@@ -204,6 +204,7 @@ class SurfstickGUI:
 		
 	def pinauth(self):
 		needed = self.s.pin_needed()
+		print needed
 		if needed[0]:
 			dlg = gtk.Dialog("PIN-Eingabe", None,
 						gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
