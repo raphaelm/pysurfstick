@@ -65,3 +65,14 @@ class SurfstickUser(interface.SurfstickInterface):
 		com = self.command_morelineanswer('AT+CGMM') # undocumented, wrong and dirty. but needed.
 		com = self.command_morelineanswer('AT+CGMM?')
 		return com
+
+	def get_revision(self):
+		com = self.command_morelineanswer('AT+CGMR') # undocumented, wrong and dirty. but needed.
+		com = self.command_morelineanswer('AT+CGMR?')
+		return com
+
+	def get_serial(self):
+		com = self.command_morelineanswer('AT+CGSN') # undocumented, wrong and dirty. but needed.
+		com = self.command_morelineanswer('AT+CGSN?')
+		return com
+

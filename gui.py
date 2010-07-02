@@ -276,6 +276,20 @@ class SurfstickGUI:
 		hbox[1].pack_end(left[1])
 		hbox[1].show_all()
 		
+		hbox[2] = gtk.HBox()
+		left[2] = gtk.Label("Änderungsnummer:")
+		right[2] = gtk.Label(self.s.get_revision()[1])
+		hbox[2].pack_end(right[1])
+		hbox[2].pack_end(left[1])
+		hbox[2].show_all()
+		
+		hbox[3] = gtk.HBox()
+		left[3] = gtk.Label("Seriennummer:")
+		right[3] = gtk.Label(self.s.get_serial()[1])
+		hbox[3].pack_end(right[1])
+		hbox[3].pack_end(left[1])
+		hbox[3].show_all()
+		
 		for i in hbox:
 			self.main_win.info_vbox.pack_start(hbox[i], False, False)
 		
