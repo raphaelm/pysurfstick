@@ -22,6 +22,7 @@
 
 # Imports
 import sys
+import time
 from optparse import OptionParser
 
 import gtk
