@@ -19,7 +19,10 @@
 #       along with this program; if not, write to the Free Software
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
+import re
+
 import serial
+
 from . import interface
 
 class SurfstickUser(interface.SurfstickInterface):
@@ -76,8 +79,20 @@ class SurfstickUser(interface.SurfstickInterface):
 		com = self.command_morelineanswer('AT+CGSN?')
 		return com
 
-	def get_imsi(self):
-		com = self.command_morelineanswer('AT+CIMI') # undocumented, wrong and dirty. but needed.
-		com = self.command_morelineanswer('AT+CIMI?')
+	def get_state(self):
+		com = self.command_morelineanswer('AT+CREG?')
+		search = re.search("+CREG: [0-9]+,([0-9]+)[^0-9]*", com)
+		if search:
+			return search.group(1)
+		else:
+			return 4
 		return com
+
+	def get_signal(self):
+		com = self.command_morelineanswer('AT+CSQ')
+		search = re.search("+CSQ: ([0-9]+),", com)
+		if search:
+			return search.group(1)
+		else:
+			return 99
 

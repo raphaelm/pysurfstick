@@ -148,9 +148,9 @@ class MainWindow(gtk.Window):
 		self.main_notebook.show()
 		
 		self.main_notebook.append_page(self.info_tbl, gtk.Label("Informationen"))
-		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("SMS"))
-		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("Prepaid-Tarife"))
-		self.main_notebook.append_page(gtk.Label("Test"), gtk.Label("SIM-Telefonbuch"))
+		self.main_notebook.append_page(gtk.Label("Im Bau"), gtk.Label("SMS"))
+		self.main_notebook.append_page(gtk.Label("Im Bau"), gtk.Label("Prepaid-Tarife"))
+		self.main_notebook.append_page(gtk.Label("Im Bau"), gtk.Label("SIM-Telefonbuch"))
 		
 		# menubar top
 		self.mainmenu = gtk.MenuBar()
@@ -257,6 +257,18 @@ class SurfstickGUI:
 	def ev_leave(self, this):
 		gtk.main_quit()
 		
+	def signaloutput(self, signal):
+		if signal == 0:
+			return "-113dBm oder schlechter"
+		elif signal == 1:
+			return "-111 dBm"
+		elif 2 <= signal <= 30:
+			return "-109dBm bis -53dBm (%d)" % ((signal-2)/30*100)
+		elif signal == 31:
+			return "-51dBm oder besser"
+		else:
+			return "?"
+		
 	def load_info(self):
 		left = {}
 		right = {}
@@ -276,8 +288,17 @@ class SurfstickGUI:
 		left[4] = gtk.Label("IMSI:")
 		right[4] = gtk.Label(self.s.get_imsi()[1])
 		
-		left[5] = gtk.Label("Port:")
-		right[5] = gtk.Label(self.port)
+		left[5] = gtk.Label("Verbindungsstatus:")
+		state = {0:'nicht eingebucht, keine Netzsuche',1:'eingebucht, Heimnetz',
+				2:'Netzsuche',3:'Einbuchung abgelehnt',4:'unbekannt',
+				5:'eingebucht, Fremdnetz'}
+		right[5] = gtk.Label(state[self.s.get_state()])
+		
+		left[6] = gtk.Label("Signalstärke:")
+		right[6] = gtk.Label(self.signaloutput(self.s.get_signal()))
+		
+		left[7] = gtk.Label("Port:")
+		right[7] = gtk.Label(self.port)
 		
 		self.main_win.info_tbl.attach(left[0],  0, 1, 0, 1)
 		self.main_win.info_tbl.attach(right[0], 1, 2, 0, 1)
