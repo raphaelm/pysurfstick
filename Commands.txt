@@ -4,6 +4,11 @@ Generell
 ========
 AT					Test
 AT+CPIN="****"		PIN-Eingabe
+AT+CPIN?			PIN-Nötigkeits-Abfrage
+					Antwort: +CPIN: READY
+					READY		ME is not pending for any password
+					SIM PIN		ME is waiting SIM PIN to be given
+					SIM PUK		ME is waiting SIM PUK to be given.
 AT+CGMI				Herstellerinfo
 AT+CGMM				Modellinfo
 AT+CGMR				"Änderungsinfo"
@@ -138,3 +143,8 @@ Fehlercodes
 332 	Network timeout 
 500 	Unknown error 
 512 	Manufacturer specific
+
+Quellen
+=======
+http://www.libelium.com/squidbee/upload/8/83/AT_Command_hilo.pdf
+http://www.nobbi.com/atgsm.html
