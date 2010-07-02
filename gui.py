@@ -290,7 +290,7 @@ Ein anderer Port kann über den Kommandozeilenparameter -p spezifiert werden."""
 		self.main_win.set_title("Surfstick GUI")
 		self.main_win.connect('destroy', self.ev_leave)
 		
-		statusbar = self.main_win.statusbar_push("Lade Informationen…")
+		statusbar = self.main_win.statusbar.push("Lade Informationen…")
 		self.load_info()
 		self.main_win.statusbar.remove_message(statusbar)
 	
