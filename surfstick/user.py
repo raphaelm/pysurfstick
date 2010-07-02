@@ -50,6 +50,7 @@ class SurfstickUser(interface.SurfstickInterface):
 	
 	def pin_needed(self):
 		com1 = self.command_onelineanswer('AT+CPIN?')
+		print com1
 		if com1.upper().endswith("READY"):
 			return (False, "nothing to do")
 		elif com1.upper().endswith("SIM PIN"):

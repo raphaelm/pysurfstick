@@ -332,7 +332,10 @@ class SurfstickGUI:
 		# test connection
 		if not self.startconnection():
 			err('Verbindung zum Gerät auf %s fehlgeschlagen!' % port, """Bitte überprüfe, ob dein UMTS-Modem korrekt angeschlossen ist. Wenn du das Programm mit diesem Modem zum ersten Mal nutzt, prüfe weiterhin, ob das Modem als mit dieser Software kompatibel bekannt ist oder nicht.
-Ein anderer Port kann über den Kommandozeilenparameter -p spezifiert werden.""")
+
+Ein anderer Port kann über den Kommandozeilenparameter -p spezifiert werden.
+
+Nach anstecken des Gerätes kann es unter Umständen bis zu zwei Minuten dauern, bis das Gerät erkannt wird.""")
 			sys.exit(0)
 		
 		self.pinauth()
