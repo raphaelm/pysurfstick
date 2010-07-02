@@ -269,12 +269,12 @@ class SurfstickGUI:
 		hbox[0].pack_end(left[0])
 		hbox[0].show_all()
 		
-		hbox[0] = gtk.HBox()
-		left[0] = gtk.Label("Modell:")
-		right[0] = gtk.Label(self.s.get_model()[1])
-		hbox[0].pack_end(right[0])
-		hbox[0].pack_end(left[0])
-		hbox[0].show_all()
+		hbox[1] = gtk.HBox()
+		left[1] = gtk.Label("Modell:")
+		right[1] = gtk.Label(self.s.get_model()[1])
+		hbox[1].pack_end(right[1])
+		hbox[1].pack_end(left[1])
+		hbox[1].show_all()
 		
 		for i in hbox:
 			self.main_win.info_vbox.pack_start(hbox[i], False, False)
