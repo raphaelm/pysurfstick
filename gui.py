@@ -220,11 +220,16 @@ class SurfstickGUI:
 				self.pinauth()
 			else:
 				if len(pin) == 4:
-					if self.s.pin_auth(pin):
+					auth = self.s.pin_auth(pin)
+					if auth[0]:
+						dlg.destroy()
 						return True
 					else:
 						dlg.destroy()
-						err("Die PIN wurde von der Karte nicht akzeptiert", "Entweder war die PIN falsch oder die Karte ist gesperrt. In letzterem Fall kann dir diese Software leider nicht weiterhelfen. Du musst dann die SIM-Karte beispielsweise in ein Handy einlegen und deine PUK eingeben.)")
+						if auth[1] == "incorrect":
+							err("Die PIN wurde von der Karte nicht akzeptiert", "Die PIN war falsch. Probiere es erneut.")
+						else:
+							err("Die PIN wurde von der Karte nicht akzeptiert", "Entweder war die PIN falsch oder die Karte ist gesperrt. In letzterem Fall kann dir diese Software leider nicht weiterhelfen. Du musst dann die SIM-Karte beispielsweise in ein Handy einlegen und deine PUK eingeben.)")
 						self.pinauth()
 				else:
 					dlg.destroy()
