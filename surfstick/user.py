@@ -36,6 +36,7 @@ class SurfstickUser(interface.SurfstickInterface):
 			return (True, "nothing to do")
 		elif com1.upper().endswith("SIM PIN") and pin != False:
 			com = self.command_onelineanswer('AT+CPIN="%s";' % str(pin))
+			print "a", com
 			if com.upper() == 'OK':
 				return (True,)
 			else:
