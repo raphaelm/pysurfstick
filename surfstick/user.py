@@ -57,8 +57,11 @@ class SurfstickUser(interface.SurfstickInterface):
 			return (False, "unknown")
 	
 	def get_manufacturer(self):
-		com = self.command_morelineanswer('AT+CGMI')
-		print com
+		com = self.command_morelineanswer('AT+CGMI') # undocumented, wrong and dirty. but needed.
 		com = self.command_morelineanswer('AT+CGMI?')
-		print com
+		return com
+
+	def get_model(self):
+		com = self.command_morelineanswer('AT+CGMM') # undocumented, wrong and dirty. but needed.
+		com = self.command_morelineanswer('AT+CGMM?')
 		return com
