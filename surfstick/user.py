@@ -30,8 +30,10 @@ class SurfstickUser(interface.SurfstickInterface):
 	def pin_auth(self, pin):
 		com = self.command_onelineanswer('AT+CPIN="%s";' % str(pin))
 		if com.upper() == 'OK':
-			return True
+			return (True,)
 		else:
-			print com
-			return False
+			if com.lower() == '+cme error: incorrect password':
+				return (False,"incorrect")
+			else:
+				return (False,"other")
 		
