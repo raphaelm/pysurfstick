@@ -77,7 +77,7 @@ class SurfstickInterface:
 			if incoming[-2:len(incoming)] == list(self.crlf) and self.waitforechoing and not echoed:
 				incoming = []
 				echoed = True
-			else incoming[-2:len(incoming)] == list(self.crlf):
+			elif incoming[-2:len(incoming)] == list(self.crlf):
 				result = "".join(incoming).strip()
 				if result.endswith("OK"):
 					return (True, result[0:len(result)-2].strip())
